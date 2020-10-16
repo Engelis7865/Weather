@@ -1,6 +1,8 @@
 import React, {useState} from 'react';
 import './App.css';
 import WeatherDisplay from "./weatherDisplay";
+import {Spinner} from 'react-bootstrap';
+import "bootstrap/dist/css/bootstrap.css";
 
 function App() {
   const [latitude, setLatitude] = useState(0);
@@ -23,7 +25,13 @@ function App() {
   navigator.geolocation.getCurrentPosition(currentLocation, error);
 
  if (loading) {
-   return <div className={'loading'}>loading</div>
+   return(
+     <div>
+       <div className='align-middle'>
+         <Spinner animation="border" variant="primary" />
+       </div>
+     </div>
+   )
  }
 
    return (
