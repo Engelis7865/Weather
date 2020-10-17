@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import {Spinner, Card} from "react-bootstrap";
 
 class WeatherDisplay extends Component {
   constructor() {
@@ -27,25 +28,38 @@ class WeatherDisplay extends Component {
 
   render() {
     const weatherData = this.state.weatherData;
-    // console.log(weatherData)
     if (!weatherData) {
-      return (<div>Loading</div>)
+      return(
+        <div className={'App'}>
+          <div className='loaderBlock'>
+            <Spinner animation="border" variant="primary" />
+          </div>
+        </div>
+      )
     }
 
     const weater = weatherData.weather[0];
     const iconUrl = "http://openweathermap.org/img/w/" + weater.icon +'.png';
 
+    console.log(weatherData);
+
     return (
-      <div>
-        <h1>
-          {weatherData.name}
-        </h1>
-        <h3>
-          {weater.description}
-          <img src={iconUrl} alt={weatherData.declaration}/>
-        </h3>
-        <p>Текущая темпетура: {weatherData.main.temp}°С</p>
-        <p>Скорость ветра: {weatherData.wind.speed} м/с</p>
+      <div className={'weatherBlock'}>
+        <Card>
+          <Card.Header as="h1">{weatherData.name}</Card.Header>
+          <Card.Body>
+            <Card.Title>
+              {weater.description}
+              <img src={iconUrl} alt={weatherData.declaration}/>
+            </Card.Title>
+            <Card.Text>
+              <p>Текущая темпетура: {weatherData.main.temp}&#8451;</p>
+              <p>Скорость ветра: {weatherData.wind.speed}м/с</p>
+              <p>Влажность: {weatherData.main.humidity}%</p>
+              <p>Давление: {weatherData.main.pressure}&#127777;</p>
+            </Card.Text>
+          </Card.Body>
+        </Card>
       </div>
     );
   }

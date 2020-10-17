@@ -7,27 +7,31 @@ import "bootstrap/dist/css/bootstrap.css";
 function App() {
   const [latitude, setLatitude] = useState(0);
   const [longitude, setLongitude] = useState(0);
-  const [loading, setLoading] = useState(true);
+  const [isLoading, setLoading] = useState(true);
+  const [isLocationError, setLocationError] = useState(false);
 
   function currentLocation(location) {
-    const latitude = location.coords.latitude, // широта
-      longitude = location.coords.longitude; //долгота
-
-    setLatitude(latitude);
-    setLongitude(longitude)
+    setLatitude(location.coords.latitude);
+    setLongitude(location.coords.longitude);
     setLoading(false);
   }
 
-  function error() {
-    return <div>Не удалось определись местоположение</div>
+  function locationError() {
+    setLocationError(true);
   }
 
-  navigator.geolocation.getCurrentPosition(currentLocation, error);
+  navigator.geolocation.getCurrentPosition(currentLocation, locationError);
 
- if (loading) {
+  if (isLocationError) {
+    return(
+      <div>Не удалось определить местоположение</div>
+    )
+  }
+
+ if (isLoading) {
    return(
-     <div>
-       <div className='align-middle'>
+     <div className={'App'}>
+       <div className='loaderBlock'>
          <Spinner animation="border" variant="primary" />
        </div>
      </div>
