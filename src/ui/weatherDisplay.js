@@ -39,14 +39,12 @@ class WeatherDisplay extends Component {
     const weather = weatherData.weather[0];
     const iconWeather = "http://openweathermap.org/img/w/" + weather.icon +'.png';
 
-    console.log(weatherData);
     return (
-      <div className={'parent'}>
       <div className={'weatherBlock'}>
         <Card>
           <Card.Header as="h1">{weatherData.name}</Card.Header>
           <Card.Body>
-            <Card.Title as='h3'>
+            <Card.Title as='h2'>
               {weatherData.main.temp}&#8451;
               <img src={iconWeather} alt={weather.declaration} title={weather.description}/>
             </Card.Title>
@@ -57,7 +55,6 @@ class WeatherDisplay extends Component {
               </Card.Text>
           </Card.Body>
         </Card>
-      </div>
       </div>
     );
   }
