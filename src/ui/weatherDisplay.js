@@ -38,7 +38,7 @@ class WeatherDisplay extends Component {
 
     const weather = weatherData.weather[0];
     const iconWeather = "http://openweathermap.org/img/w/" + weather.icon +'.png';
-    const weatherDescription = weather.declaration;
+    const weatherDescription = weather.description;
     const windSpeed = weatherData.wind.speed;
     const humidity = weatherData.main.humidity;
     const pressure = weatherData.main.pressure;
