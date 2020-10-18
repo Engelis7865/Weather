@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import {Card} from "react-bootstrap";
 import SpinnerLoading from "./spinner";
 
-class WeatherDisplay extends Component {
+export default class WeatherDisplay extends Component {
   constructor() {
     super();
     this.state = {
@@ -68,6 +68,3 @@ class WeatherDisplay extends Component {
     );
   }
 }
-
-export default WeatherDisplay;
-

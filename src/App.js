@@ -8,6 +8,8 @@ export default function App() {
   const [location, setLocation] = useState({latitude: 0, longitude: 0, isLoading: true});
 
   useEffect(() => {
+    navigator.geolocation.getCurrentPosition(currentLocation, locationError);
+
     function currentLocation(location) {
       setLocation({
         latitude: location.coords.latitude,
@@ -18,6 +20,7 @@ export default function App() {
 
     function locationError() {
       const URLGetIp = 'http://ip-api.com/json';
+
       fetch(URLGetIp).then(res => res.json().then(json =>
         setLocation({
           latitude: json.lat,
@@ -26,8 +29,6 @@ export default function App() {
         }),
       ))
     }
-
-    navigator.geolocation.getCurrentPosition(currentLocation, locationError);
   }, [])
 
   if (location.isLoading) {
@@ -47,5 +48,3 @@ export default function App() {
     </div>
   );
 }
-
-
