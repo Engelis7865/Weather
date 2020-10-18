@@ -38,6 +38,7 @@ class WeatherDisplay extends Component {
 
     const weather = weatherData.weather[0];
     const iconWeather = "http://openweathermap.org/img/w/" + weather.icon +'.png';
+    const temperature = weatherData.main.temp;
     const weatherDescription = weather.description;
     const windSpeed = weatherData.wind.speed;
     const humidity = weatherData.main.humidity;
@@ -49,7 +50,7 @@ class WeatherDisplay extends Component {
           <Card.Header as="h1">{weatherData.name}</Card.Header>
           <Card.Body>
             <Card.Title as='h2'>
-              {weatherData.main.temp}&#8451;
+              {temperature}&#8451;
               <img
                 src={iconWeather}
                 alt={weatherDescription}
