@@ -38,6 +38,10 @@ class WeatherDisplay extends Component {
 
     const weather = weatherData.weather[0];
     const iconWeather = "http://openweathermap.org/img/w/" + weather.icon +'.png';
+    const weatherDescription = weather.declaration;
+    const windSpeed = weatherData.wind.speed;
+    const humidity = weatherData.main.humidity;
+    const pressure = weatherData.main.pressure;
 
     return (
       <div className={'weatherBlock'}>
@@ -46,12 +50,16 @@ class WeatherDisplay extends Component {
           <Card.Body>
             <Card.Title as='h2'>
               {weatherData.main.temp}&#8451;
-              <img src={iconWeather} alt={weather.declaration} title={weather.description}/>
+              <img
+                src={iconWeather}
+                alt={weatherDescription}
+                title={weatherDescription}
+              />
             </Card.Title>
               <Card.Text>
-                Скорость ветра: {weatherData.wind.speed}м/с<br/>
-                Влажность: {weatherData.main.humidity}%<br/>
-                Давление: {weatherData.main.pressure}&#127777;
+                Скорость ветра: {windSpeed}м/с<br/>
+                Влажность: {humidity}%<br/>
+                Давление: {pressure}&#127777;
               </Card.Text>
           </Card.Body>
         </Card>

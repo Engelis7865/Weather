@@ -1,51 +1,63 @@
-import React, {useState, useEffect} from 'react';
+import React, {Component} from 'react';
 import './App.css';
 import WeatherDisplay from "./ui/weatherDisplay";
 import "bootstrap/dist/css/bootstrap.css";
 import SpinnerLoading from "./ui/spinner";
 
-function App() {
-  const [latitude, setLatitude] = useState(0);
-  const [longitude, setLongitude] = useState(0);
-  const [isLoading, setLoading] = useState(true);
-  const [isLocationError, setLocationError] = useState(false);
-
-  useEffect(() => {
-    navigator.geolocation.getCurrentPosition(currentLocation, locationError);
-  })
-
-  function currentLocation(location) {
-    setLatitude(location.coords.latitude);
-    setLongitude(location.coords.longitude);
-    setLoading(false);
+class App extends Component {
+  constructor() {
+    super();
+    this.state = {
+      latitude: 0,
+      longitude: 0,
+      isLoading: true
+    }
   }
 
-  function locationError() {
-    setLocationError(true);
+  componentDidMount() {
+    navigator.geolocation.getCurrentPosition(this.currentLocation, this.locationError);
   }
 
-  if (isLocationError) {
-    return(
-      <div>Не удалось определить местоположение</div>
-    )
+  currentLocation = (location) => {
+    this.setState({
+      latitude: location.coords.latitude,
+      longitude: location.coords.longitude,
+      isLoading: false
+    })
   }
 
- if (isLoading) {
-   return(
-     <>
-       <SpinnerLoading/>
-     </>
-   )
- }
+  locationError = () => {
+    const URLGetIp = 'http://ip-api.com/json';
+    fetch(URLGetIp).then(res => res.json().then(json =>
+        this.setState({
+          latitude: json.lat,
+          longitude: json.lon,
+          isLoading: false
+        }),
+    ))
+  }
 
-   return (
-     <div className={'App'}>
-       <WeatherDisplay
-         latitude = {latitude}
-         longitude = {longitude}
-       />
-     </div>
-   );
+  render() {
+    const isLoading = this.state.isLoading;
+
+    if (isLoading) {
+      return (
+        <>
+          <SpinnerLoading/>
+        </>
+      )
+    }
+
+    return (
+      <div className={'App'}>
+        <WeatherDisplay
+          latitude={this.state.latitude}
+          longitude={this.state.longitude}
+        />
+      </div>
+    );
+  }
 }
 
 export default App;
+
