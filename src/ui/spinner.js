@@ -1,7 +1,7 @@
 import React from 'react';
 import {Spinner} from "react-bootstrap";
 
-function SpinnerLoading() {
+export default function SpinnerLoading() {
   return(
     <div className={'App'}>
       <div className='loaderBlock'>
@@ -10,5 +10,3 @@ function SpinnerLoading() {
     </div>
   )
 }
-
-export default SpinnerLoading;
